@@ -16,22 +16,25 @@ public class User {
     private String phoneNum;
     private String address;
     private String urlAvatar;
-    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
-    @JoinColumn(name = "uid", referencedColumnName = "uid")
-    private Account acc;
+    private String username;
+    private String password;
+    private String role;
     @OneToMany(targetEntity=Bill.class, mappedBy="bID", fetch=FetchType.EAGER)
     private List<Bill> bills;
 
     public User() {}
 
-    public User(String firstName, String lastName, String email, Account acc, String phoneNum, String address, String urlAvatar, List<Bill> bills) {
+    public User(int uID, String firstName, String lastName, String email, String phoneNum, String address, String urlAvatar, String username, String password, String role, List<Bill> bills) {
+        this.uID = uID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.acc = acc;
         this.phoneNum = phoneNum;
         this.address = address;
         this.urlAvatar = urlAvatar;
+        this.username = username;
+        this.password = password;
+        this.role = role;
         this.bills = bills;
     }
 
@@ -63,14 +66,6 @@ public class User {
         this.email = email;
     }
 
-    public Account getAcc() {
-        return this.acc;
-    }
-
-    public void setAcc(Account acc) {
-        this.acc = acc;
-    }
-
     public String getPhoneNum() {
         return this.phoneNum;
     }
@@ -85,6 +80,30 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void setUID(int uID) {
+        this.uID = uID;
+    }
+
+    public String getUsername() {
+        return this.username;
+    } 
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getRole() {
+        return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getUrlAvatar() {
@@ -102,19 +121,4 @@ public class User {
     public void setBills(List<Bill> bills) {
         this.bills = bills;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " uID='" + getUID() + "'" +
-            ", firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
-            ", email='" + getEmail() + "'" +
-            ", acc='" + getAcc() + "'" +
-            ", phoneNum='" + getPhoneNum() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", urlAvatar='" + getUrlAvatar() + "'" +
-            ", bills='" + getBills() + "'" +
-            "}";
-    }    
 }

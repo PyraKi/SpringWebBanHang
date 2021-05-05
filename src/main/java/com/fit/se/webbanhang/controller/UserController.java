@@ -22,4 +22,9 @@ public class UserController {
     public List<User> getUsers(){
         return userService.getUsers();
     }
+
+    @RequestMapping("/user")
+    public User getUser(){
+        return userService.getUser(1);
+    }
 }

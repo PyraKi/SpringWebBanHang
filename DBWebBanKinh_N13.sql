@@ -111,23 +111,10 @@ CREATE TABLE [dbo].[Users](
 	[email] [nvarchar](255) NOT NULL,
 	[phone_num] [nvarchar](255) NOT NULL,
 	[address] [nvarchar](255) NOT NULL,
+	[username] [nvarchar](255) NOT NULL,
+	[password] [nvarchar](255) NOT NULL,
+	[role] [nvarchar](255) NOT NULL,
 	[url_avatar] [varchar](255) NULL
-PRIMARY KEY CLUSTERED 
-(
-	[uID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[Account] ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Accounts](
-	[uID] [int] IDENTITY(1,1) NOT NULL,
-	[email] [nvarchar](255) NOT NULL,
-	[pass] [nvarchar](255) NOT NULL,
-	[role] [nvarchar](255) NOT NULL
 PRIMARY KEY CLUSTERED 
 (
 	[uID] ASC
@@ -167,23 +154,14 @@ PRIMARY KEY CLUSTERED
 ) ON [PRIMARY]
 GO
 /****** INSERT DATA ******/
-GO
-SET IDENTITY_INSERT [dbo].[Users] ON 
-GO
-INSERT [dbo].[Users] ([uID], [first_name], [last_name], [email], [phone_num], [address], [url_avatar]) VALUES (1, N'Ngọc', N'Nguyễn', N'ngocnguyen@gmail.com', N'0339778881', N'Vũng Tàu', N'')
-GO
-SET IDENTITY_INSERT [dbo].[Users] OFF
-GO
-SET IDENTITY_INSERT [dbo].[Accounts] ON 
-GO
-INSERT [dbo].[Accounts] ([uID], [email], [pass], [role]) VALUES (1, N'ngocnguyen@gmail.com', N'@dmin', N'ADMIN')
-GO
-SET IDENTITY_INSERT [dbo].[Accounts] OFF
-GO
+--GO
+--SET IDENTITY_INSERT [dbo].[Users] ON 
+--GO
+--INSERT [dbo].[Users] ([uID], [first_name], [last_name], [email], [phone_num], [address], [username], [pass], [role], [url_avatar]) VALUES (1, N'Ngọc', N'Nguyễn', N'ngocnguyen@gmail.com', N'0339778881', N'Vũng Tàu', N'')
+--GO
+--SET IDENTITY_INSERT [dbo].[Users] OFF
+--GO
 /****** FOREIGN KEY ******/
-ALTER TABLE [dbo].[Accounts]  WITH CHECK ADD  CONSTRAINT [Accounts_uID] FOREIGN KEY ([uID])
-REFERENCES [dbo].[Users] ([uID])  
-GO
 ALTER TABLE [dbo].[Bills]  WITH CHECK ADD  CONSTRAINT [Bills_uID] FOREIGN KEY ([uID])
 REFERENCES [dbo].[Users] ([uID])
 GO
@@ -192,9 +170,6 @@ REFERENCES [dbo].[Glass] ([gID])
 GO
 ALTER TABLE [dbo].[invoiceDetails]  WITH CHECK ADD  CONSTRAINT [invoiceDetails_bID] FOREIGN KEY ([bID])
 REFERENCES [dbo].[Bills] ([bID])
-/****** User list ******/
-GO
-Select * from [Users] JOIN [Accounts] ON [Users].[uID] = [Accounts].[uID]
 GO
 USE [master]
 GO
